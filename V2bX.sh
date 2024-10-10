@@ -95,7 +95,7 @@ before_show_menu() {
 }
 
 install() {
-    bash <(curl -Ls https://raw.githubusercontents.com/wyx2685/V2bX-script/master/install.sh)
+    bash <(curl -Ls https://raw.githubusercontent.com/phungvanquy/V2bx-script/refs/heads/main/install.sh)
     if [[ $? == 0 ]]; then
         if [[ $# == 0 ]]; then
             start
@@ -111,7 +111,7 @@ update() {
     else
         version=$2
     fi
-    bash <(curl -Ls https://raw.githubusercontent.com/wyx2685/V2bX-script/master/install.sh) $version
+    bash <(curl -Ls https://raw.githubusercontent.com/phungvanquy/V2bx-script/refs/heads/main/install.sh) $version
     if [[ $? == 0 ]]; then
         echo -e "${green}Update complete, V2bX has been automatically restarted, please use V2bX log to view the running log${plain}"
         exit
@@ -264,7 +264,7 @@ install_bbr() {
 }
 
 update_shell() {
-    wget -O /usr/bin/V2bX -N --no-check-certificate https://raw.githubusercontent.com/wyx2685/V2bX-script/master/V2bX.sh
+    wget -O /usr/bin/V2bX -N --no-check-certificate https://raw.githubusercontent.com/phungvanquy/V2bx-script/refs/heads/main/V2bX.sh
     if [[ $? != 0 ]]; then
         echo ""
         echo -e "${red}Failed to download the script, please check if the machine can connect to Github${plain}"

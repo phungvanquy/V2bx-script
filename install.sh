@@ -140,7 +140,7 @@ install_V2bX() {
     chmod +x V2bX
     mkdir /etc/V2bX/ -p
     rm /etc/systemd/system/V2bX.service -f
-    file="https://github.com/wyx2685/V2bX-script/raw/master/V2bX.service"
+    file="https://raw.githubusercontent.com/phungvanquy/V2bx-script/refs/heads/main/V2bX.service"
     wget -q -N --no-check-certificate -O /etc/systemd/system/V2bX.service ${file}
     #cp -f V2bX.service /etc/systemd/system/
     systemctl daemon-reload
@@ -180,7 +180,7 @@ install_V2bX() {
     if [[ ! -f /etc/V2bX/custom_inbound.json ]]; then
         cp custom_inbound.json /etc/V2bX/
     fi
-    curl -o /usr/bin/V2bX -Ls https://raw.githubusercontent.com/wyx2685/V2bX-script/master/V2bX.sh
+    curl -o /usr/bin/V2bX -Ls https://raw.githubusercontent.com/phungvanquy/V2bx-script/refs/heads/main/V2bX.sh
     chmod +x /usr/bin/V2bX
     if [ ! -L /usr/bin/v2bx ]; then
         ln -s /usr/bin/V2bX /usr/bin/v2bx
@@ -211,7 +211,7 @@ install_V2bX() {
     if [[ $first_install == true ]]; then
         read -rp "Detected that this is your first installation of V2bX, do you want to automatically generate the configuration file? (y/n): " if_generate
         if [[ $if_generate == [Yy] ]]; then
-            curl -o ./initconfig.sh -Ls https://raw.githubusercontent.com/wyx2685/V2bX-script/master/initconfig.sh
+            curl -o ./initconfig.sh -Ls https://raw.githubusercontent.com/phungvanquy/V2bx-script/refs/heads/main/initconfig.sh
             source initconfig.sh
             rm initconfig.sh -f
             generate_config_file
