@@ -889,11 +889,10 @@ ${green}V2bX backend management script,${plain}${red}not suitable for docker${pl
     ${green}7.${plain} View V2bX status
     ${green}8.${plain} View V2bX log
 ————————————————
-    ${green}9.${plain} 设置 V2bX 开机自启
-    ${green}10.${plain} 取消 V2bX 开机自启
+    ${green}9.${plain} Enable V2bX autostart
+    ${green}10.${plain} Disable V2bX autostart
 ————————————————
     ${green}11.${plain} One-click install bbr (latest kernel)
-    ${green}12.${plain} View V2bX version
     ${green}12.${plain} View V2bX version
     ${green}13.${plain} Generate X25519 key
     ${green}13.${plain} Generate X25519 key
