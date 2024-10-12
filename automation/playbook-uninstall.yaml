@@ -1,0 +1,16 @@
+---
+- hosts: v2bx_hosts
+  become: yes
+  vars_files:
+    - secrets.yml
+    - vars.yaml
+  tasks:  
+    - name: Uninstall V2bX  
+      shell: echo "y" | /usr/bin/v2bx uninstall  
+      args:  
+        executable: /bin/bash  
+
+    - name: Remove V2bX binary  
+      file:  
+        path: /usr/bin/V2bX  
+        state: absent  

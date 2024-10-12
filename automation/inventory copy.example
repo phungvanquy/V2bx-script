@@ -1,0 +1,5 @@
+[v2bx_hosts]
+node1_name ansible_host=160.30.xx.xx ansible_user=root ansible_password=node1_password dns_record=vietnam1.h2cloud dns_zone=phungvanquy.com NODE_ID=4 PROTOCOL_TYPE="hysteria"
+node2_name ansible_host=160.32.xx.xx ansible_user=root ansible_password=node2_password dns_record=vietnam2.h2cloud dns_zone=phungvanquy.com NODE_ID=7 PROTOCOL_TYPE="vless"
+
+

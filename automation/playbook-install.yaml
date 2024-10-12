@@ -1,0 +1,86 @@
+---
+- hosts: v2bx_hosts
+  become: yes
+  vars_files:
+    - vars.yaml
+  tasks:
+    - name: Download the V2bx script
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/phungvanquy/V2bx-script/refs/heads/main/install.sh
+        dest: /tmp/install.sh
+        mode: '0755'
+        force: yes
+
+    - name: Allow UFW ports  
+      ansible.builtin.ufw:  
+        rule: allow  
+        port: "{{ item.port }}"  
+        proto: "{{ item.proto }}"  
+      loop:  
+        - { port: '443', proto: 'tcp' }  
+        - { port: '443', proto: 'udp' }  
+        - { port: '80', proto: 'tcp' }  
+        - { port: '80', proto: 'udp' }  
+        - { port: '22', proto: 'tcp' }  
+        - { port: '22', proto: 'udp' }  
+
+    - name: Enable UFW
+      ansible.builtin.ufw:
+        state: enabled
+
+    - name: Create a record using api token
+      community.general.cloudflare_dns:
+        zone: "{{ dns_zone }}"
+        record: "{{ dns_record }}"
+        type: A
+        value: "{{ ansible_host }}"
+        api_token: "{{ cloudflare_api_token }}"
+        state: present
+    
+    - name: Check if v2bx is installed  
+      ansible.builtin.stat:  
+        path: /usr/bin/v2bx  
+      register: v2bx_file
+
+    - name: run the script  
+      shell: |  
+        bash /tmp/install.sh <<EOF  
+        y  
+        y  
+        {{ V2BOARD_PANEL_URL }}  
+        {{ V2BOARD_API_KEY }}  
+        y  
+        3  
+        {{ NODE_ID }}  
+        y  
+        1  
+        {{ dns_record }}.{{ dns_zone }}  
+        n  
+        EOF  
+      args:  
+        executable: /bin/bash
+      when: 
+        - PROTOCOL_TYPE == "hysteria"
+        - not v2bx_file.stat.exists
+
+    - name: run the script  
+      shell: |  
+        bash /tmp/install.sh <<EOF  
+        y  
+        y  
+        {{ V2BOARD_PANEL_URL }}  
+        {{ V2BOARD_API_KEY }}  
+        y  
+        2  
+        {{ NODE_ID }}  
+        2  
+        y  
+        n  
+        EOF
+      args:  
+        executable: /bin/bash
+      when: 
+        - PROTOCOL_TYPE == "vless"
+        - not v2bx_file.stat.exists
+
+
